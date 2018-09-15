@@ -14,11 +14,11 @@ package main
 
 import (
 	"log"
-	"github.com/lafikl/consistent"
+	"github.com/chenjinxuan/consistent"
 )
 
 func main() {
-	c := consistent.New()
+	c := consistent.New(255)
 
 	// adds the hosts to the ring
 	c.Add("127.0.0.1:8000")
@@ -48,11 +48,11 @@ package main
 
 import (
 	"log"
-	"github.com/lafikl/consistent"
+	"github.com/chenjinxuan/consistent"
 )
 
 func main() {
-	c := consistent.New()
+	c := consistent.New(255)
 
 	// adds the hosts to the ring
 	c.Add("127.0.0.1:8000")
@@ -82,6 +82,41 @@ func main() {
 
 ```
 
+### test
+```
+package main
+
+import (
+	"fmt"
+	"github.com/chenjinxuan/consistent"
+	"strconv"
+)
+
+func main() {
+	a := consistent.New(255)
+	a.Add("node1")
+	a.Add("node2")
+	a.Add("node3")
+	a.Add("node4")
+	var c = make(map[int]string)
+	for i := 0; i < 100; i++ {
+		c[i], _ = a.Get(strconv.Itoa(i))
+	}
+	a.Add("node5")
+	var x = make(map[int]string)
+	for i := 0; i < 100; i++ {
+		x[i], _ = a.Get(strconv.Itoa(i))
+	}
+	a.Remove("node5")
+	var w = make(map[int]string)
+	for i := 0; i < 100; i++ {
+		w[i], _ = a.Get(strconv.Itoa(i))
+	}
+	for i := 0; i < 100; i++ {
+		fmt.Println(i, "==", c[i], "==", x[i], "==", w[i])
+	}
+}
+```
 
 ## Docs
 
