@@ -18,8 +18,6 @@ import (
 	blake2b "github.com/minio/blake2b-simd"
 )
 
-//const replicationFactor = 10
-
 var ErrNoHosts = errors.New("no hosts added")
 
 type Host struct {
