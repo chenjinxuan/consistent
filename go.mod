@@ -1,4 +1,4 @@
-module github.com/chenjinxuan/consistent
+module github.com/chenjinxuan/consistent/v2
 
 go 1.12
 
