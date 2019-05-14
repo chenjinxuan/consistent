@@ -178,6 +178,15 @@ func (c *Consistent) Remove(host string) bool {
 	return true
 }
 
+// Deletes all host
+func (c *Consistent) RemoveAll() {
+	c.Lock()
+	defer c.Unlock()
+	c.hosts = make(map[uint64]string)
+	c.sortedSet = []uint64{}
+	c.loadMap = make(map[string]*Host)
+}
+
 // Return the list of hosts in the ring
 func (c *Consistent) Hosts() (hosts []string) {
 	c.RLock()
